@@ -1,49 +1,69 @@
+import os
+
 import qrcode
 from PIL import Image
 
+# QR code properties:
+box_size = 10
+border = 4
+fill_color = 'black'
+back_color = 'white'
+logo_link = 'logo.png'
+error_correction = qrcode.constants.ERROR_CORRECT_H
 
-def generate_qr_code():
-    qr = qrcode.QRCode(version=None, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
-    qr.add_data("https://www.luczniczqa.pl")
-    img = qr.make_image(fill_color="black", back_color="white")
-    img.save("qr_code_without_logo.png")
-
-
-def generate_qr_code_matrix():
-    logo = Image.open("logo.png")
-    qr = qrcode.QRCode(version=None, error_correction=qrcode.constants.ERROR_CORRECT_L, box_size=10, border=4)
-    qr.add_data("https://www.luczniczqa.pl")
-    qr.make(fit=True)
-    img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
-    logo_size = int(min(img.size) * 0.1)  # Rozmiar logo jako 1/4 rozmiaru kodu QR
-    logo = logo.resize((logo_size, logo_size))
-    logo_pos = ((img.size[0] - logo_size) // 2, (img.size[1] - logo_size) // 2)
-    img.paste(logo, logo_pos)
-    img.save("false_qr_code_with_logo.png")
+# URLs and filenames:
+results_directory= 'results'
+luczniczqa_website = 'https://www.luczniczqa.pl'
+luczniczqa_slack = 'https://join.slack.com/t/luczniczqa/shared_invite/zt-1r2pi3ckz-AmsPdWoFelLzPMscYRbf1A'
+luczniczqa_facebook = 'https://www.facebook.com/LuczniczQA'
+luczniczqa_linkedin = 'https://www.linkedin.com/company/luczniczqa/'
 
 
-def generate_geeks_forge():
-    logo_link = 'logo.png'
-    logo = Image.open(logo_link)
+def create_results_directory(directory=results_directory):
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+
+
+def generate_qr_code_without_logo(data_to_encode, filename_prefix):
+    create_results_directory()
+    qr = qrcode.QRCode(version=None, error_correction=error_correction, box_size=box_size,
+                       border=border)
+    qr.add_data(data_to_encode)
+    img = qr.make_image(fill_color=fill_color, back_color=back_color)
+    img.save(f'./results/{filename_prefix}_prefix_qr_code_without_logo.png')
+
+
+def generate_qr_code_with_logo(data_to_encode, filename_prefix, logo_to_encode):
+    create_results_directory()
+    logo = Image.open(logo_to_encode)
     basewidth = 100
-    wpercent = (basewidth/float(logo.size[0]))
-    hsize = int((float(logo.size[1])*float(wpercent)))
+    wpercent = (basewidth / float(logo.size[0]))
+    hsize = int((float(logo.size[1]) * float(wpercent)))
     logo = logo.resize((basewidth, hsize), Image.ANTIALIAS)
     QRcode = qrcode.QRCode(
-        error_correction=qrcode.constants.ERROR_CORRECT_H
+        error_correction=error_correction
     )
-    url = 'https://www.luczniczqa.pl'
-    QRcode.add_data(url)
+    QRcode.add_data(data_to_encode)
     QRcode.make()
-    qr_color = 'Black'
+    qr_color = fill_color
     qr_image = QRcode.make_image(
-        fill_color=qr_color, back_color="white").convert('RGB')
+        fill_color=qr_color, back_color=back_color).convert('RGB')
     pos = ((qr_image.size[0] - logo.size[0]) // 2,
            (qr_image.size[1] - logo.size[1]) // 2)
     qr_image.paste(logo, pos)
-    qr_image.save('qr_code_with_logo.png')
+    qr_image.save(f'./results/{filename_prefix}_qr_code_with_logo.png')
+
+
+def generate_qr_code_for_all_set():
+    generate_qr_code_without_logo(luczniczqa_website, 'website')
+    generate_qr_code_with_logo(luczniczqa_website, 'website', logo_link)
+    generate_qr_code_without_logo(luczniczqa_slack, 'slack')
+    generate_qr_code_with_logo(luczniczqa_slack, 'slack', logo_link)
+    generate_qr_code_without_logo(luczniczqa_linkedin, 'linkedin')
+    generate_qr_code_with_logo(luczniczqa_linkedin, 'linkedin', logo_link)
+    generate_qr_code_without_logo(luczniczqa_facebook, 'facebook')
+    generate_qr_code_with_logo(luczniczqa_facebook, 'facebook', logo_link)
 
 
 if __name__ == '__main__':
-    generate_qr_code()
-    generate_geeks_forge()
+    generate_qr_code_for_all_set()
