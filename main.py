@@ -1,6 +1,7 @@
 import os
 
 import qrcode
+from qrcode.image.svg import SvgPathImage
 from PIL import Image
 
 # QR code properties:
@@ -30,7 +31,22 @@ def generate_qr_code_without_logo(data_to_encode, filename_prefix):
                        border=border)
     qr.add_data(data_to_encode)
     img = qr.make_image(fill_color=fill_color, back_color=back_color)
-    img.save(f'./results/{filename_prefix}_prefix_qr_code_without_logo.png')
+    img.save(f'./results/{filename_prefix}_qr_code_without_logo.png')
+
+
+def generate_qr_code_without_logo_svg(data_to_encode, filename_prefix):
+    qr = qrcode.QRCode(
+        version=None,
+        error_correction=error_correction,
+        box_size=box_size,
+        border=border,
+    )
+    qr.add_data(data_to_encode)
+    qr.make(fit=True)
+
+    # Create an SVG image from the QR code
+    img = qr.make_image(image_factory=SvgPathImage)
+    img.save(f'./results/{filename_prefix}_qr_code_without_logo.svg')
 
 
 def generate_qr_code_with_logo(data_to_encode, filename_prefix, logo_to_encode):
@@ -55,14 +71,15 @@ def generate_qr_code_with_logo(data_to_encode, filename_prefix, logo_to_encode):
 
 
 def generate_qr_code_for_all_set():
-    generate_qr_code_without_logo(luczniczqa_website, 'website')
-    generate_qr_code_with_logo(luczniczqa_website, 'website', logo_link)
-    generate_qr_code_without_logo(luczniczqa_slack, 'slack')
-    generate_qr_code_with_logo(luczniczqa_slack, 'slack', logo_link)
-    generate_qr_code_without_logo(luczniczqa_linkedin, 'linkedin')
-    generate_qr_code_with_logo(luczniczqa_linkedin, 'linkedin', logo_link)
-    generate_qr_code_without_logo(luczniczqa_facebook, 'facebook')
-    generate_qr_code_with_logo(luczniczqa_facebook, 'facebook', logo_link)
+    # generate_qr_code_without_logo(luczniczqa_website, 'website')
+    # generate_qr_code_with_logo(luczniczqa_website, 'website', logo_link)
+    # generate_qr_code_without_logo(luczniczqa_slack, 'slack')
+    # generate_qr_code_with_logo(luczniczqa_slack, 'slack', logo_link)
+    # generate_qr_code_without_logo(luczniczqa_linkedin, 'linkedin')
+    # generate_qr_code_with_logo(luczniczqa_linkedin, 'linkedin', logo_link)
+    # generate_qr_code_without_logo(luczniczqa_facebook, 'facebook')
+    # generate_qr_code_with_logo(luczniczqa_facebook, 'facebook', logo_link)
+    generate_qr_code_without_logo_svg(luczniczqa_website, 'website')
 
 
 if __name__ == '__main__':
