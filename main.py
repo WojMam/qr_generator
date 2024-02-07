@@ -9,7 +9,7 @@ box_size = 10
 border = 4
 fill_color = 'black'
 back_color = 'white'
-logo_link = 'logos/luczniczqa_logo.png'
+logo_link = 'resources/logos/luczniczqa_logo.png'
 error_correction = qrcode.constants.ERROR_CORRECT_H
 
 # URLs and filenames:
@@ -20,9 +20,7 @@ luczniczqa_facebook = 'https://www.facebook.com/LuczniczQA'
 luczniczqa_linkedin = 'https://www.linkedin.com/company/luczniczqa/'
 
 
-def create_results_directory(directory=results_directory):
-    if not os.path.exists(directory):
-        os.mkdir(directory)
+
 
 
 def generate_qr_code_without_logo(data_to_encode, filename_prefix):
