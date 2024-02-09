@@ -2,3 +2,8 @@
 /.idea/modules.xml
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/qr_generator.iml
+
+# Output results
+.svg
+.jpg
+.jpeg
