@@ -71,7 +71,7 @@ def generate_qr_code_with_logo(configs, data_to_encode, filename_prefix, logo_to
     create_results_directory(configs)
     logo = Image.open(logo_to_encode)
     basewidth = 100
-    wpercent =(basewidth / float(logo.size[0])
+    wpercent =basewidth / float(logo.size[0])
     hsize = int((float(logo.size[1]) * float(wpercent)))
     logo = logo.resize((basewidth, hsize), Image.ANTIALIAS)
     qrcode_object = qrcode.QRCode(
