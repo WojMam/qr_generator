@@ -4,8 +4,21 @@ from PIL import Image
 
 from results_utils import create_results_directory
 
+""" This is a python module that has functions to generate QR codes images in
+    different formats.
+"""
 
 def generate_qr_code_without_logo(configs, data_to_encode, filename_prefix):
+    """
+    This method is generating QR code image in black and white format
+    without any logo inside of it in .png format.
+
+    Parameters:
+    configs (): Object with all the parameters set in the project configuration file
+    data_to_encode (string): Data to be decoded inside QR code, for example webpage link
+    filename_prefix (string): Prefix to the filename that will be saved as result
+    """
+
     create_results_directory(configs)
     qr = qrcode.QRCode(version=None, 
                        error_correction=qrcode.constants.ERROR_CORRECT_H, 
@@ -17,6 +30,16 @@ def generate_qr_code_without_logo(configs, data_to_encode, filename_prefix):
 
 
 def generate_qr_code_without_logo_svg(configs, data_to_encode, filename_prefix):
+    """
+    This method is generating QR code image in black and white format
+    without any logo inside of it in .svg format.
+
+    Parameters:
+    configs (): Object with all the parameters set in the project configuration file
+    data_to_encode (string): Data to be decoded inside QR code, for example webpage link
+    filename_prefix (string): Prefix to the filename that will be saved as result
+    """
+
     create_results_directory(configs)
     qr = qrcode.QRCode(
         version=None,
@@ -33,6 +56,16 @@ def generate_qr_code_without_logo_svg(configs, data_to_encode, filename_prefix):
 
 
 def generate_qr_code_with_logo(configs, data_to_encode, filename_prefix, logo_to_encode):
+    """
+    This method is generating QR code image in black and white format
+    with a logo inside of it in .png format.
+
+    Parameters:
+    configs (): Object with all the parameters set in the project configuration file
+    data_to_encode (string): Data to be decoded inside QR code, for example webpage link
+    filename_prefix (string): Prefix to the filename that will be saved as result
+    """
+
     create_results_directory(configs)
     logo = Image.open(logo_to_encode)
     basewidth = 100
