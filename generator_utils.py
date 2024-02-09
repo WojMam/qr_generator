@@ -21,12 +21,13 @@ def generate_qr_code_without_logo(configs, data_to_encode, filename_prefix):
     """
 
     create_results_directory(configs)
-    qr = qrcode.QRCode(version=None, 
-                       error_correction=qrcode.constants.ERROR_CORRECT_H, 
+    qr = qrcode.QRCode(version=None,
+                       error_correction=qrcode.constants.ERROR_CORRECT_H,
                        box_size=configs.get("box_size").data,
                        border=configs.get("border").data)
     qr.add_data(data_to_encode)
-    img = qr.make_image(fill_color=configs.get("fill_color").data, back_color=configs.get("back_color").data)
+    img = qr.make_image(fill_color=configs.get("fill_color").data, 
+                        back_color=configs.get("back_color").data)
     img.save(f'./results/{filename_prefix}_qr_code_without_logo.png')
 
 
@@ -97,12 +98,25 @@ def generate_qr_code_for_all_set(configs):
     filename_prefix (string): Prefix to the filename that will be saved as result
     """
 
-    generate_qr_code_without_logo(configs.get("luczniczqa_website"), 'website')
-    generate_qr_code_with_logo(configs.get("luczniczqa_website"), 'website', configs.get("logo_link"))
-    generate_qr_code_without_logo(configs.get("luczniczqa_slack"), 'slack')
-    generate_qr_code_with_logo(configs.get("luczniczqa_slack"), 'slack', configs.get("logo_link"))
-    generate_qr_code_without_logo(configs.get("luczniczqa_linkedin"), 'linkedin')
-    generate_qr_code_with_logo(configs.get("luczniczqa_linkedin"), 'linkedin', configs.get("logo_link"))
-    generate_qr_code_without_logo(configs.get("luczniczqa_facebook"), 'facebook')
-    generate_qr_code_with_logo(configs.get("luczniczqa_facebook"), 'facebook', configs.get("logo_link"))
-    generate_qr_code_without_logo_svg(configs, configs.get("luczniczqa_website").data, 'website')
+    generate_qr_code_without_logo(configs.get("luczniczqa_website"),
+                                  'website')
+    generate_qr_code_with_logo(configs.get("luczniczqa_website"),
+                               'website',
+                               configs.get("logo_link"))
+    generate_qr_code_without_logo(configs.get("luczniczqa_slack"),
+                                  'slack')
+    generate_qr_code_with_logo(configs.get("luczniczqa_slack"),
+                               'slack',
+                               configs.get("logo_link"))
+    generate_qr_code_without_logo(configs.get("luczniczqa_linkedin"),
+                                  'linkedin')
+    generate_qr_code_with_logo(configs.get("luczniczqa_linkedin"),
+                               'linkedin',
+                               configs.get("logo_link"))
+    generate_qr_code_without_logo(configs.get("luczniczqa_facebook"),
+                                  'facebook')
+    generate_qr_code_with_logo(configs.get("luczniczqa_facebook"),
+                               'facebook',
+                               configs.get("logo_link"))
+    generate_qr_code_without_logo_svg(configs, configs.get("luczniczqa_website").data,
+                                      'website')
