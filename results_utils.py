@@ -1,7 +1,8 @@
+""" This is a python module that has project utilities functions."""
+
 import os
 from jproperties import Properties
 
-""" This is a python module that has project utilities functions."""
 
 def properties():
     """

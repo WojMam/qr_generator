@@ -1,12 +1,13 @@
+""" This is a python module that has functions to generate QR codes images in
+    different formats.
+"""
+
 import qrcode
 from qrcode.image.svg import SvgPathImage
 from PIL import Image
 
 from results_utils import create_results_directory
 
-""" This is a python module that has functions to generate QR codes images in
-    different formats.
-"""
 
 def generate_qr_code_without_logo(configs, data_to_encode, filename_prefix):
     """
@@ -87,13 +88,21 @@ def generate_qr_code_with_logo(configs, data_to_encode, filename_prefix, logo_to
 
 
 def generate_qr_code_for_all_set(configs):
-    # generate_qr_code_without_logo(luczniczqa_website, 'website')
-    # generate_qr_code_with_logo(luczniczqa_website, 'website', logo_link)
-    # generate_qr_code_without_logo(luczniczqa_slack, 'slack')
-    # generate_qr_code_with_logo(luczniczqa_slack, 'slack', logo_link)
-    # generate_qr_code_without_logo(luczniczqa_linkedin, 'linkedin')
-    # generate_qr_code_with_logo(luczniczqa_linkedin, 'linkedin', logo_link)
-    # generate_qr_code_without_logo(luczniczqa_facebook, 'facebook')
-    # generate_qr_code_with_logo(luczniczqa_facebook, 'facebook', logo_link)
+    """
+    This method  generating whole set of  QR code images at once.
+
+    Parameters:
+    configs (): Object with all the parameters set in the project configuration file
+    data_to_encode (string): Data to be decoded inside QR code, for example webpage link
+    filename_prefix (string): Prefix to the filename that will be saved as result
+    """
+
+    generate_qr_code_without_logo(configs.get("luczniczqa_website"), 'website')
+    generate_qr_code_with_logo(configs.get("luczniczqa_website"), 'website', configs.get("logo_link"))
+    generate_qr_code_without_logo(configs.get("luczniczqa_slack"), 'slack')
+    generate_qr_code_with_logo(configs.get("luczniczqa_slack"), 'slack', configs.get("logo_link"))
+    generate_qr_code_without_logo(configs.get("luczniczqa_linkedin"), 'linkedin')
+    generate_qr_code_with_logo(configs.get("luczniczqa_linkedin"), 'linkedin', configs.get("logo_link"))
+    generate_qr_code_without_logo(configs.get("luczniczqa_facebook"), 'facebook')
+    generate_qr_code_with_logo(configs.get("luczniczqa_facebook"), 'facebook', configs.get("logo_link"))
     generate_qr_code_without_logo_svg(configs, configs.get("luczniczqa_website").data, 'website')
-    # print(configs.get("error_correction").data)
