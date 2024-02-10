@@ -39,10 +39,10 @@ Please make sure to check pylint results in the Actions tab after commiting.
 
 ## Plan for the future:
 
-- Full refactor
-- Links in the seperate file, not hardcoded in the code
-- Possibility to put you own link in the command line
-- GUI?
+- [x] Full refactor
+- [X] Links in the seperate file, not hardcoded in the code
+- [ ] Possibility to put you own link in the command line
+- [ ] GUI
 
 ## License
 
