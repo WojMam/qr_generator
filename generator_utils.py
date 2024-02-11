@@ -100,23 +100,23 @@ def generate_qr_code_for_all_set(configs):
 
     generate_qr_code_without_logo(configs, configs.get("luczniczqa_website"),
                                   'website')
-    generate_qr_code_with_logo(configs, configs.get("luczniczqa_website"),
-                               'website',
-                               configs.get("logo_link"))
-    generate_qr_code_without_logo(configs, configs.get("luczniczqa_slack"),
-                                  'slack')
-    generate_qr_code_with_logo(configs, configs.get("luczniczqa_slack"),
-                               'slack',
-                               configs.get("logo_link"))
-    generate_qr_code_without_logo(configs, configs.get("luczniczqa_linkedin"),
-                                  'linkedin')
-    generate_qr_code_with_logo(configs, configs.get("luczniczqa_linkedin"),
-                               'linkedin',
-                               configs.get("logo_link"))
-    generate_qr_code_without_logo(configs, configs.get("luczniczqa_facebook"),
-                                  'facebook')
-    generate_qr_code_with_logo(configs, configs.get("luczniczqa_facebook"),
-                               'facebook',
-                               configs.get("logo_link"))
-    generate_qr_code_without_logo_svg(configs, configs.get("luczniczqa_website").data,
-                                      'website')
+    # generate_qr_code_with_logo(configs, configs.get("luczniczqa_website"),
+    #                            'website',
+    #                            configs.get("logo_link"))
+    # generate_qr_code_without_logo(configs, configs.get("luczniczqa_slack"),
+    #                               'slack')
+    # generate_qr_code_with_logo(configs, configs.get("luczniczqa_slack"),
+    #                            'slack',
+    #                            configs.get("logo_link"))
+    # generate_qr_code_without_logo(configs, configs.get("luczniczqa_linkedin"),
+    #                               'linkedin')
+    # generate_qr_code_with_logo(configs, configs.get("luczniczqa_linkedin"),
+    #                            'linkedin',
+    #                            configs.get("logo_link"))
+    # generate_qr_code_without_logo(configs, configs.get("luczniczqa_facebook"),
+    #                               'facebook')
+    # generate_qr_code_with_logo(configs, configs.get("luczniczqa_facebook"),
+    #                            'facebook',
+    #                            configs.get("logo_link"))
+    # generate_qr_code_without_logo_svg(configs, configs.get("luczniczqa_website").data,
+    #                                   'website')
