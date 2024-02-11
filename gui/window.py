@@ -1,3 +1,7 @@
+""" This is a python module that has functions to generate window application
+    view and it's various methods.
+"""
+
 import tkinter as tk
 from tkinter import messagebox
 
