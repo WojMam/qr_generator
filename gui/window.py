@@ -24,6 +24,7 @@ def open_results_dir():
     """
     path="./results"
     if platform.system() == "Windows":
+        path = os.path.join(os.path.dirname(__file__), "../results")
         os.startfile(path)
     elif platform.system() == "Darwin":
         subprocess.Popen(["open", path])
@@ -43,7 +44,7 @@ def initialize_window():
     button_generate = tk.Button(root, text="Generate", command=generate_all_qr_codes)
     button_generate.pack()
 
-    button_open_results_dir = tk.Button(root, text="Generate", command=open_results_dir)
+    button_open_results_dir = tk.Button(root, text="Open results", command=open_results_dir)
     button_open_results_dir.pack()
 
     root.mainloop()

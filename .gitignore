@@ -134,6 +134,7 @@ dmypy.json
 .idea
 
 # Output results
+*.png
 *.svg
 *.jpg
 *.jpeg
