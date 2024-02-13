@@ -31,20 +31,41 @@ def open_results_dir():
     else:
         subprocess.Popen(["xdg-open", path])
 
+def load_properties(configs, tkinter_object):
+    """
+    This method loads the properties data to show inside an app window.
+
+    Parameters:
+    configs (): Object with all the parameters set in the project configuration file
+    tkinter_object (): tkinter main object
+    """
+    label = tk.Label(tkinter_object, text="Results directory: " + configs.get("results_directory").data)
+    label.pack(pady=2)
+    label = tk.Label(tkinter_object, text="LuczniczQA webstie: " + configs.get("luczniczqa_website").data)
+    label.pack(pady=2)
+    label = tk.Label(tkinter_object, text="LuczniczQA Slack: " + configs.get("luczniczqa_slack").data)
+    label.pack(pady=2)
+    label = tk.Label(tkinter_object, text="LuczniczQA LinkedIn: " + configs.get("luczniczqa_linkedin").data)
+    label.pack(pady=2)
+    label = tk.Label(tkinter_object, text="LuczniczQA Facebook: " + configs.get("luczniczqa_facebook").data)
+
 def initialize_window():
     """
     This method create the main app window.
     """
+    
     root = tk.Tk()
     root.title("QR generator")
 
     label = tk.Label(root, text="Click the button to show a message box")
     label.pack(pady=10)
 
+    load_properties(configs=properties(), tkinter_object=root)
+
     button_generate = tk.Button(root, text="Generate", command=generate_all_qr_codes)
-    button_generate.pack()
+    button_generate.pack(pady=5)
 
     button_open_results_dir = tk.Button(root, text="Open results", command=open_results_dir)
-    button_open_results_dir.pack()
+    button_open_results_dir.pack(pady=5)
 
     root.mainloop()

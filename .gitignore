@@ -138,3 +138,4 @@ dmypy.json
 *.svg
 *.jpg
 *.jpeg
+__pycache__/results_utils.cpython-310.pyc
