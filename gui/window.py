@@ -57,8 +57,13 @@ def initialize_window():
     root = tk.Tk()
     root.title("QR generator")
 
-    label = tk.Label(root, text="Click the button to show a message box")
+    frame = tk.Frame(root, relief=tk.SOLID, borderwidth=2)
+
+    label = tk.Label(frame, text="This is a simple application to generate QR codes.\n"+
+                     "Use Generate button to start and Open Results to check your QR codes.")
     label.pack(pady=10)
+
+    frame.pack(pady=5)
 
     load_properties(configs=properties(), tkinter_object=root)
 
