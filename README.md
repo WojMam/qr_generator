@@ -1,11 +1,11 @@
 # qr_generator
 
-QR generator is a small side project to quickly generate QR codes with basic link to 
+QR generator is a small side project to quickly generate QR codes with basic link to
 our meetup resources.
 
 ## Pre-requisities
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install all 
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install all
 required dependencies.
 
 ```bash
@@ -13,6 +13,7 @@ pip install -r requirements.txt
 ```
 
 ## Usage
+
 Before running the code, please check below file to adjust your properties/links:
 
 ```bash
@@ -39,10 +40,15 @@ Please make sure to check pylint results in the Actions tab after commiting.
 
 ## Plan for the future:
 
-- [x] Full refactor
-- [X] Links in the seperate file, not hardcoded in the code
-- [ ] Possibility to put you own link in the command line
+- [x] Full initial refactor
+- [x] Links in the seperate file, not hardcoded in the code
+- [ ] Possibility to put you own link in the command line to generate 1 QR code
+- [ ] Possibility to generate QR codes for all the links from the configuration file via command line
 - [ ] GUI
+  - [x] Possibility to put you own link in the entry field
+  - [x] Possibility to generate single QR code from the entry field
+  - [ ] Possibility to generate QR codes for all the links from the configuration file
+  - [x] Possibility to open OS explorer window in the "Results" directory
 
 ## License
 
