@@ -20,15 +20,10 @@ Before running the code, please check below file to adjust your properties/links
 /resources/app-config.properties
 ```
 
-Afterwards, to generate all the possible QR codes varations below code be used (included in the main.py):
+User can use application GUI to generate the QR codes. To run the GUI below command must be executed from the project root directory:
 
-```python
-from generator_utils import generate_qr_code_for_all_set
-from results_utils import properties
-
-
-if __name__ == '__main__':
-    generate_qr_code_for_all_set(configs=properties())
+```bash
+python main.py
 ```
 
 ## Contributing
@@ -37,6 +32,10 @@ Pull requests are welcome. For major changes, please open an issue first
 to discuss what you would like to change.
 
 Please make sure to check pylint results in the Actions tab after commiting.
+
+Last commit Pylink status:
+
+![example workflow](https://github.com/WojMam/qr_generator/actions/workflows/pylint.yml/badge.svg)
 
 ## Plan for the future:
 
