@@ -98,6 +98,7 @@ def generate_qr_code_for_all_set(configs):
     filename_prefix (string): Prefix to the filename that will be saved as result
     """
 
+    #TBD
     generate_qr_code_without_logo(configs, configs.get("luczniczqa_website"),
                                   'website')
     # generate_qr_code_with_logo(configs, configs.get("luczniczqa_website"),

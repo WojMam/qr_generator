@@ -8,20 +8,30 @@ import subprocess
 import tkinter as tk
 from tkinter import messagebox
 
-from generator_utils import generate_qr_code_for_all_set
+from generator_utils import generate_qr_code_for_all_set, generate_qr_code_without_logo
 from results_utils import properties
 
 def generate_all_qr_codes():
     """
     This method shows the popup window with welcoming message.
     """
+
     generate_qr_code_for_all_set(configs=properties())
+    messagebox.showinfo("Message", "All QR codes were generated")
+
+def generate_qr_code_from_input(configs, input):
+    """
+    This method shows the popup window with welcoming message.
+    """
+
+    generate_qr_code_without_logo(configs, input, 'input')
     messagebox.showinfo("Message", "All QR codes were generated")
 
 def open_results_dir():
     """
     This method opens results directory in system explorer.
     """
+
     path="./results"
     if platform.system() == "Windows":
         path = os.path.join(os.path.dirname(__file__), "../results")
@@ -31,44 +41,52 @@ def open_results_dir():
     else:
         subprocess.Popen(["xdg-open", path])
 
-def load_properties(configs, tkinter_object):
+def get_entry_value(entry_element):
     """
-    This method loads the properties data to show inside an app window.
+    This method returns the value of the given Entry element.
 
     Parameters:
-    configs (): Object with all the parameters set in the project configuration file
-    tkinter_object (): tkinter main object
+    entry_element (): name of the tkinter Entry element
+
+    Returns:
+    str:Value of an entry element
     """
-    label = tk.Label(tkinter_object, text="Results directory: " + configs.get("results_directory").data)
-    label.pack(pady=2)
-    label = tk.Label(tkinter_object, text="LuczniczQA webstie: " + configs.get("luczniczqa_website").data)
-    label.pack(pady=2)
-    label = tk.Label(tkinter_object, text="LuczniczQA Slack: " + configs.get("luczniczqa_slack").data)
-    label.pack(pady=2)
-    label = tk.Label(tkinter_object, text="LuczniczQA LinkedIn: " + configs.get("luczniczqa_linkedin").data)
-    label.pack(pady=2)
-    label = tk.Label(tkinter_object, text="LuczniczQA Facebook: " + configs.get("luczniczqa_facebook").data)
+
+    current_value = entry_element.get()
+    return current_value
 
 def initialize_window():
     """
     This method create the main app window.
     """
-    
+
+    configs=properties()
+
     root = tk.Tk()
     root.title("QR generator")
 
-    frame = tk.Frame(root, relief=tk.SOLID, borderwidth=2)
-
-    label = tk.Label(frame, text="This is a simple application to generate QR codes.\n"+
+    title_frame = tk.Frame(root, relief="raised", bd=2)
+    title_label = tk.Label(title_frame, text="QR generator")
+    title_label.pack()
+    title_frame.pack(pady=10)
+    label = tk.Label(title_frame, text="This is a simple application to generate QR codes.\n"+
                      "Use Generate button to start and Open Results to check your QR codes.")
     label.pack(pady=10)
 
-    frame.pack(pady=5)
+    LuczniczQA_webstie = tk.StringVar(value=configs.get("luczniczqa_website").data)
 
-    load_properties(configs=properties(), tkinter_object=root)
+    input_frame = tk.Frame(root)
+    label = tk.Label(input_frame, text="Data to encode:")
+    label.pack()
+    entry = tk.Entry(input_frame, textvariable=LuczniczQA_webstie, width=50)
+    entry.pack()
+    input_frame.pack(pady=5)
 
-    button_generate = tk.Button(root, text="Generate", command=generate_all_qr_codes)
+    button_generate = tk.Button(root, text="Generate", command=lambda: generate_qr_code_from_input(configs, get_entry_value(entry)))
     button_generate.pack(pady=5)
+
+    button_generate_all = tk.Button(root, text="Generate all", command=generate_all_qr_codes)
+    button_generate_all.pack(pady=2)
 
     button_open_results_dir = tk.Button(root, text="Open results", command=open_results_dir)
     button_open_results_dir.pack(pady=5)
