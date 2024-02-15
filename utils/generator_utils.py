@@ -6,7 +6,7 @@ import qrcode
 from qrcode.image.svg import SvgPathImage
 from PIL import Image
 
-from results_utils import create_results_directory
+from utils.results_utils import create_results_directory
 
 
 def generate_qr_code_without_logo(configs, data_to_encode, filename_prefix):

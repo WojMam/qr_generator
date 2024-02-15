@@ -8,8 +8,8 @@ import subprocess
 import tkinter as tk
 from tkinter import messagebox
 
-from generator_utils import generate_qr_code_for_all_set, generate_qr_code_without_logo
-from results_utils import properties
+from utils.generator_utils import generate_qr_code_for_all_set, generate_qr_code_without_logo
+from utils.results_utils import properties
 
 def generate_all_qr_codes():
     """
