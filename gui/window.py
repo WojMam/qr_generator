@@ -7,6 +7,7 @@ import platform
 import subprocess
 import tkinter as tk
 from tkinter import messagebox
+from PIL import Image, ImageTk
 
 from utils.generator_utils import generate_qr_code_for_all_set, generate_qr_code_without_logo
 from utils.results_utils import properties
@@ -64,6 +65,10 @@ def initialize_window():
 
     root = tk.Tk()
     root.title("QR generator")
+
+    ico = Image.open('./resources/app_icon.png')
+    photo = ImageTk.PhotoImage(ico)
+    root.wm_iconphoto(False, photo)
 
     title_frame = tk.Frame(root, relief="raised", bd=2)
     title_label = tk.Label(title_frame, text="QR generator")
