@@ -2,6 +2,7 @@
     view and it's various methods.
 """
 
+import logging
 import os
 import platform
 import subprocess
@@ -37,12 +38,13 @@ def open_results_dir():
     if platform.system() == "Windows":
         path = os.path.join(os.path.dirname(__file__), "../results")
         os.startfile(path)
+        logging.info('The results directory has been opened (windows)')
     elif platform.system() == "Darwin":
         with subprocess.Popen(["open", path]) as sub:
-            return sub
+            logging.info('The results directory has been opened (linux)' + sub.returncode)
     else:
         with subprocess.Popen(["xdg-open", path]) as sub:
-            return sub
+            logging.info('The results directory has been opened (macOS)' + sub.returncode)
 
 def get_entry_value(entry_element):
     """
