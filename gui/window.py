@@ -20,12 +20,12 @@ def generate_all_qr_codes():
     generate_qr_code_for_all_set(configs=properties())
     messagebox.showinfo("Message", "All QR codes were generated")
 
-def generate_qr_code_from_input(configs, input):
+def generate_qr_code_from_input(configs, input_field):
     """
     This method shows the popup window with welcoming message.
     """
 
-    generate_qr_code_without_logo(configs, input, 'input')
+    generate_qr_code_without_logo(configs, input_field, 'input')
     messagebox.showinfo("Message", "All QR codes were generated")
 
 def open_results_dir():
@@ -39,6 +39,7 @@ def open_results_dir():
         os.startfile(path)
     elif platform.system() == "Darwin":
         subprocess.Popen(["open", path])
+
     else:
         subprocess.Popen(["xdg-open", path])
 
@@ -78,16 +79,17 @@ def initialize_window():
                      "Use Generate button to start and Open Results to check your QR codes.")
     label.pack(pady=10)
 
-    LuczniczQA_webstie = tk.StringVar(value=configs.get("luczniczqa_website").data)
+    luczniczQA_webstie = tk.StringVar(value=configs.get("luczniczqa_website").data)
 
     input_frame = tk.Frame(root)
     label = tk.Label(input_frame, text="Data to encode:")
     label.pack()
-    entry = tk.Entry(input_frame, textvariable=LuczniczQA_webstie, width=50)
+    entry = tk.Entry(input_frame, textvariable=luczniczQA_webstie, width=50)
     entry.pack()
     input_frame.pack(pady=5)
 
-    button_generate = tk.Button(root, text="Generate", command=lambda: generate_qr_code_from_input(configs, get_entry_value(entry)))
+    button_generate = tk.Button(root, text="Generate", 
+                                command=lambda: generate_qr_code_from_input(configs, get_entry_value(entry)))
     button_generate.pack(pady=5)
 
     button_generate_all = tk.Button(root, text="Generate all", command=generate_all_qr_codes)
