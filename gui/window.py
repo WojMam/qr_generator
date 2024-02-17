@@ -41,10 +41,10 @@ def open_results_dir():
         logging.info('The results directory has been opened (windows)')
     elif platform.system() == "Darwin":
         with subprocess.Popen(["open", path]) as sub:
-            logging.info('The results directory has been opened (linux)' + sub.returncode)
+            logging.info('The results directory has been opened (linux): %s', sub.returncode)
     else:
         with subprocess.Popen(["xdg-open", path]) as sub:
-            logging.info('The results directory has been opened (macOS)' + sub.returncode)
+            logging.info('The results directory has been opened (macOS): %s', sub.returncode)
 
 def get_entry_value(entry_element):
     """
