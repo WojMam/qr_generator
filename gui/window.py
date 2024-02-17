@@ -79,17 +79,18 @@ def initialize_window():
                      "Use Generate button to start and Open Results to check your QR codes.")
     label.pack(pady=10)
 
-    luczniczQA_webstie = tk.StringVar(value=configs.get("luczniczqa_website").data)
+    luczniczqa_webstie = tk.StringVar(value=configs.get("luczniczqa_website").data)
 
     input_frame = tk.Frame(root)
     label = tk.Label(input_frame, text="Data to encode:")
     label.pack()
-    entry = tk.Entry(input_frame, textvariable=luczniczQA_webstie, width=50)
+    entry = tk.Entry(input_frame, textvariable=luczniczqa_webstie, width=50)
     entry.pack()
     input_frame.pack(pady=5)
 
     button_generate = tk.Button(root, text="Generate", 
-                                command=lambda: generate_qr_code_from_input(configs, get_entry_value(entry)))
+                                command=lambda: 
+                                    generate_qr_code_from_input(configs, get_entry_value(entry)))
     button_generate.pack(pady=5)
 
     button_generate_all = tk.Button(root, text="Generate all", command=generate_all_qr_codes)
