@@ -88,8 +88,8 @@ def initialize_window():
     entry.pack()
     input_frame.pack(pady=5)
 
-    button_generate = tk.Button(root, text="Generate", 
-                                command=lambda: 
+    button_generate = tk.Button(root, text="Generate",
+                                command=lambda:
                                     generate_qr_code_from_input(configs, get_entry_value(entry)))
     button_generate.pack(pady=5)
 
