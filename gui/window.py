@@ -38,10 +38,11 @@ def open_results_dir():
         path = os.path.join(os.path.dirname(__file__), "../results")
         os.startfile(path)
     elif platform.system() == "Darwin":
-        subprocess.Popen(["open", path])
-
+        with subprocess.Popen(["open", path]) as sub:
+            return
     else:
-        subprocess.Popen(["xdg-open", path])
+        with subprocess.Popen(["xdg-open", path]) as sub:
+            return 
 
 def get_entry_value(entry_element):
     """
