@@ -3,7 +3,7 @@
 """
 
 import logging
-import os # pylint: disable=import-error
+import os
 import platform
 import subprocess
 import tkinter as tk
@@ -30,7 +30,7 @@ def open_results_dir():
     path="./results"
     if platform.system() == "Windows":
         path = os.path.join(os.path.dirname(__file__), "../results")
-        os.startfile(path)
+        os.startfile(path) # pylint: disable=no-member
         logging.info('The results directory has been opened (windows)')
     elif platform.system() == "Darwin":
         with subprocess.Popen(["open", path]) as sub:
