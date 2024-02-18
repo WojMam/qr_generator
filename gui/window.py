@@ -3,7 +3,7 @@
 """
 
 import logging
-import os
+import os # pylint: disable=import-error
 import platform
 import subprocess
 import tkinter as tk
@@ -13,13 +13,6 @@ from PIL import Image, ImageTk
 from utils.generator_utils import generate_qr_code_without_logo
 from utils.results_utils import properties
 
-def generate_all_qr_codes():
-    """
-    This method shows the popup window with welcoming message.
-    """
-
-    generate_qr_code_for_all_set(configs=properties())
-    messagebox.showinfo("Message", "All QR codes were generated")
 
 def generate_qr_code_from_input(configs, input_field):
     """
