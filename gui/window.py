@@ -10,7 +10,7 @@ import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk
 
-from utils.generator_utils import generate_qr_code_for_all_set, generate_qr_code_without_logo
+from utils.generator_utils import generate_qr_code_without_logo
 from utils.results_utils import properties
 
 def generate_all_qr_codes():
@@ -95,9 +95,6 @@ def initialize_window():
                                 command=lambda:
                                     generate_qr_code_from_input(configs, get_entry_value(entry)))
     button_generate.pack(pady=5)
-
-    button_generate_all = tk.Button(root, text="Generate all", command=generate_all_qr_codes)
-    button_generate_all.pack(pady=2)
 
     button_open_results_dir = tk.Button(root, text="Open results", command=open_results_dir)
     button_open_results_dir.pack(pady=5)

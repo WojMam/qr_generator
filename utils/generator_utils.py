@@ -86,38 +86,3 @@ def generate_qr_code_with_logo(configs, data_to_encode, filename_prefix, logo_to
            (qr_image.size[1] - logo.size[1]) // 2)
     qr_image.paste(logo, pos)
     qr_image.save(f'./results/{filename_prefix}_qr_code_with_logo.png')
-
-
-def generate_qr_code_for_all_set(configs):
-    """
-    This method  generating whole set of  QR code images at once.
-
-    Parameters:
-    configs (): Object with all the parameters set in the project configuration file
-    data_to_encode (string): Data to be decoded inside QR code, for example webpage link
-    filename_prefix (string): Prefix to the filename that will be saved as result
-    """
-
-    #TBD
-    generate_qr_code_without_logo(configs, configs.get("luczniczqa_website"),
-                                  'website')
-    # generate_qr_code_with_logo(configs, configs.get("luczniczqa_website"),
-    #                            'website',
-    #                            configs.get("logo_link"))
-    # generate_qr_code_without_logo(configs, configs.get("luczniczqa_slack"),
-    #                               'slack')
-    # generate_qr_code_with_logo(configs, configs.get("luczniczqa_slack"),
-    #                            'slack',
-    #                            configs.get("logo_link"))
-    # generate_qr_code_without_logo(configs, configs.get("luczniczqa_linkedin"),
-    #                               'linkedin')
-    # generate_qr_code_with_logo(configs, configs.get("luczniczqa_linkedin"),
-    #                            'linkedin',
-    #                            configs.get("logo_link"))
-    # generate_qr_code_without_logo(configs, configs.get("luczniczqa_facebook"),
-    #                               'facebook')
-    # generate_qr_code_with_logo(configs, configs.get("luczniczqa_facebook"),
-    #                            'facebook',
-    #                            configs.get("logo_link"))
-    # generate_qr_code_without_logo_svg(configs, configs.get("luczniczqa_website").data,
-    #                                   'website')
