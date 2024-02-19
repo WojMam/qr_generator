@@ -49,6 +49,7 @@ Last commit Pylink status:
   - [x] Possibility to generate QR codes for all the links from the configuration file - removed :heavy_multiplication_x:
   - [x] Possibility to open OS explorer window in the "Results" directory
   - [ ] GUI refactor to more modern one
+  - [x] Possibility to decode the data from QR code image
 
 ## License
 
