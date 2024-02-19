@@ -3,6 +3,7 @@
 """
 
 import qrcode
+import cv2
 from qrcode.image.svg import SvgPathImage
 from PIL import Image
 
@@ -86,3 +87,18 @@ def generate_qr_code_with_logo(configs, data_to_encode, filename_prefix, logo_to
            (qr_image.size[1] - logo.size[1]) // 2)
     qr_image.paste(logo, pos)
     qr_image.save(f'./results/{filename_prefix}_qr_code_with_logo.png')
+
+def decode_qr_code(data_to_decode):
+    """
+    This method is decoding QR code image into text.
+
+    Parameters:
+    data_to_decode (string): Data to be decoded inside QR code, for example webpage link
+
+    Returns:
+    str:Value of an entry element
+    """
+
+    detector = cv2.QRCodeDetector()
+    text, b, c = detector.detectAndDecode(cv2.imread(data_to_decode))
+    return text
