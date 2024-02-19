@@ -93,10 +93,10 @@ def decode_qr_code(data_to_decode):
     This method is decoding QR code image into text.
 
     Parameters:
-    data_to_decode (string): Data to be decoded inside QR code, for example webpage link
+    data_to_decode (string): Data to be encoded (QR code image)
 
     Returns:
-    str:Value of an entry element
+    str:File directory
     """
 
     detector = cv2.QRCodeDetector()

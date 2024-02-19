@@ -6,11 +6,14 @@ import logging
 import os
 import platform
 import subprocess
+import time
 import tkinter as tk
 from tkinter import messagebox
+from tkinter.filedialog import askopenfile, askopenfilename
+from tkinter.ttk import Progressbar
 from PIL import Image, ImageTk
 
-from utils.generator_utils import generate_qr_code_without_logo
+from utils.generator_utils import decode_qr_code, generate_qr_code_without_logo
 from utils.results_utils import properties
 
 
@@ -55,6 +58,26 @@ def get_entry_value(entry_element):
     current_value = entry_element.get()
     return current_value
 
+def open_file(label_to_update):
+    file_path = askopenfilename(filetypes=[('Image Files', '*jpeg'), ('Image Files', '*png')])
+    if file_path is not None:
+        label_to_update.config(text = decode_qr_code(file_path))
+
+def uploadFiles(root):
+    pb1 = Progressbar(
+        root, 
+        orient="HORIZONTAL", 
+        length=300, 
+        mode='determinate'
+        )
+    pb1.grid(row=4, columnspan=3, pady=20)
+    for i in range(5):
+        root.update_idletasks()
+        pb1['value'] += 20
+        time.sleep(1)
+    pb1.destroy()
+    tk.Label(root, text='File Uploaded Successfully!', foreground='green').pack()
+
 def initialize_window():
     """
     This method create the main app window.
@@ -93,5 +116,24 @@ def initialize_window():
 
     button_open_results_dir = tk.Button(root, text="Open results", command=open_results_dir)
     button_open_results_dir.pack(pady=5)
+
+    file_upload_label = tk.Label(
+        root, 
+        text='QR code image to encode: '
+        )
+    file_upload_label.pack(pady=5)
+
+    file_upload_button = tk.Button(
+        root, 
+        text ='Choose File', 
+        command = lambda:open_file(file_upload_results_label)
+        ) 
+    file_upload_button.pack(pady=5)
+
+    file_upload_results_label = tk.Label(
+        root, 
+        text='...'
+        )
+    file_upload_results_label.pack(pady=5)
 
     root.mainloop()
