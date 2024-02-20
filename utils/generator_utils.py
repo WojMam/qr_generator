@@ -99,6 +99,6 @@ def decode_qr_code(data_to_decode):
     str:File directory
     """
 
-    detector = cv2.QRCodeDetector()
-    text, b, c = detector.detectAndDecode(cv2.imread(data_to_decode))
+    detector = cv2.QRCodeDetector() # pylint: disable=no-member
+    text, b, c = detector.detectAndDecode(cv2.imread(data_to_decode)) # pylint: disable=no-member, unused-variable
     return text
