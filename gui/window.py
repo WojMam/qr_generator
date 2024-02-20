@@ -9,6 +9,8 @@ import subprocess
 import tkinter as tk
 from tkinter import messagebox
 from tkinter.filedialog import askopenfilename
+import customtkinter
+import tkinterDnD
 from PIL import Image, ImageTk
 
 from utils.generator_utils import decode_qr_code, generate_qr_code_without_logo
@@ -66,7 +68,7 @@ def open_file(label_to_update):
 
     file_path = askopenfilename(filetypes=[('Image Files', '*jpeg'), ('Image Files', '*png')])
     if file_path is not None:
-        label_to_update.config(text = decode_qr_code(file_path))
+        label_to_update.configure(text = decode_qr_code(file_path))
 
 def initialize_window():
     """
@@ -75,52 +77,61 @@ def initialize_window():
 
     configs=properties()
 
-    root = tk.Tk()
+    customtkinter.set_ctk_parent_class(tkinterDnD.Tk)
+
+    customtkinter.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
+    customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
+
+    # root = tk.Tk()
+    root = customtkinter.CTk()
     root.title("QR generator")
+    root.geometry("600x580")
 
     ico = Image.open('./resources/app_icon.png')
     photo = ImageTk.PhotoImage(ico)
     root.wm_iconphoto(False, photo)
 
-    title_frame = tk.Frame(root, relief="raised", bd=2)
-    title_label = tk.Label(title_frame, text="QR generator")
+    title_frame = customtkinter.CTkFrame(root)
+    title_label = customtkinter.CTkLabel(title_frame, text="QR generator")
     title_label.pack()
     title_frame.pack(pady=10)
-    label = tk.Label(title_frame, text="This is a simple application to generate QR codes.\n"+
+    label = customtkinter.CTkLabel(title_frame,
+                     text="This is a simple application to generate QR codes.\n"+
                      "Use Generate button to start and Open Results to check your QR codes.")
     label.pack(pady=10)
 
     luczniczqa_webstie = tk.StringVar(value=configs.get("luczniczqa_website").data)
 
-    input_frame = tk.Frame(root)
-    label = tk.Label(input_frame, text="Data to encode:")
+    input_frame = customtkinter.CTkFrame(root)
+    label = customtkinter.CTkLabel(input_frame, text="Data to encode:")
     label.pack()
-    entry = tk.Entry(input_frame, textvariable=luczniczqa_webstie, width=50)
+    entry = customtkinter.CTkEntry(input_frame, textvariable=luczniczqa_webstie, width=400)
     entry.pack()
     input_frame.pack(pady=5)
 
-    button_generate = tk.Button(root, text="Generate",
+    button_generate = customtkinter.CTkButton(root, text="Generate",
                                 command=lambda:
                                     generate_qr_code_from_input(configs, get_entry_value(entry)))
     button_generate.pack(pady=5)
 
-    button_open_results_dir = tk.Button(root, text="Open results", command=open_results_dir)
+    button_open_results_dir = customtkinter.CTkButton(root, text="Open results",
+                                                      command=open_results_dir)
     button_open_results_dir.pack(pady=5)
 
-    file_upload_label = tk.Label(
+    file_upload_label = customtkinter.CTkLabel(
         root,
         text='QR code image to encode: '
         )
     file_upload_label.pack(pady=5)
 
-    file_upload_button = tk.Button(
+    file_upload_button = customtkinter.CTkButton(
         root,
         text ='Choose File',
         command = lambda:open_file(file_upload_results_label)
         )
     file_upload_button.pack(pady=5)
 
-    file_upload_results_label = tk.Label(
+    file_upload_results_label = customtkinter.CTkLabel(
         root,
         text='...'
         )
