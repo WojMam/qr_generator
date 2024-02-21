@@ -10,7 +10,7 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter.filedialog import askopenfilename
 import customtkinter
-import tkinterDnD
+import tkinterdnd2
 from PIL import Image, ImageTk
 
 from utils.generator_utils import decode_qr_code, generate_qr_code_without_logo
@@ -77,7 +77,7 @@ def initialize_window():
 
     configs=properties()
 
-    customtkinter.set_ctk_parent_class(tkinterDnD.Tk)
+    customtkinter.set_ctk_parent_class(tkinterdnd2.Tk)
 
     customtkinter.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
     customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
