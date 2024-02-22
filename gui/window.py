@@ -22,7 +22,7 @@ customtkinter.set_default_color_theme(
 )  # Themes: "blue" (standard), "green", "dark-blue"
 
 
-class App(customtkinter.CTk):
+class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
     """Class representing an app window"""
 
     def __init__(self):
