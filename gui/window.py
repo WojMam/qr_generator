@@ -6,135 +6,209 @@ import logging
 import os
 import platform
 import subprocess
-import tkinter as tk
 from tkinter import messagebox
 from tkinter.filedialog import askopenfilename
 import customtkinter
-import tkinterdnd2
 from PIL import Image, ImageTk
 
 from utils.generator_utils import decode_qr_code, generate_qr_code_without_logo
 from utils.results_utils import properties
 
+customtkinter.set_appearance_mode(
+    "System"
+)  # Modes: "System" (standard), "Dark", "Light"
+customtkinter.set_default_color_theme(
+    "blue"
+)  # Themes: "blue" (standard), "green", "dark-blue"
 
-def generate_qr_code_from_input(configs, input_field):
-    """
-    This method shows the popup window with welcoming message.
-    """
 
-    generate_qr_code_without_logo(configs, input_field, 'input')
-    messagebox.showinfo("Message", "All QR codes were generated")
+class App(customtkinter.CTk):
+    """Class representing an app window"""
 
-def open_results_dir():
-    """
-    This method opens results directory in system explorer.
-    """
+    def __init__(self):
+        super().__init__()
 
-    path="./results"
-    if platform.system() == "Windows":
-        path = os.path.join(os.path.dirname(__file__), "../results")
-        # Line below has to be disabled in pylint due to the lack of this method in Unix os
-        # which the pylint is ran on.
-        os.startfile(path) # pylint: disable=no-member
-        logging.info('The results directory has been opened (windows)')
-    elif platform.system() == "Darwin":
-        with subprocess.Popen(["open", path]) as sub:
-            logging.info('The results directory has been opened (linux): %s', sub.returncode)
-    else:
-        with subprocess.Popen(["xdg-open", path]) as sub:
-            logging.info('The results directory has been opened (macOS): %s', sub.returncode)
+        configs = properties()
+        # configure window
+        self.title("CustomTkinter complex_example.py")
+        self.geometry(f"{1100}x{580}")
 
-def get_entry_value(entry_element):
-    """
-    This method returns the value of the given Entry element.
+        ico = Image.open("./resources/app_icon.png")
+        photo = ImageTk.PhotoImage(ico)
+        self.wm_iconphoto(False, photo)
 
-    Parameters:
-    entry_element (): name of the tkinter Entry element
+        # configure grid layout (4x4)
+        self.grid_columnconfigure(1, weight=1)
+        self.grid_columnconfigure((2, 3), weight=0)
+        self.grid_rowconfigure((0, 1, 2), weight=1)
 
-    Returns:
-    str:Value of an entry element
-    """
-
-    current_value = entry_element.get()
-    return current_value
-
-def open_file(label_to_update):
-    """
-    This method updates the Label element with the filename of the choosen file.
-
-    Parameters:
-    label_to_update (): name of the tkinter Label element that should be updated
-    """
-
-    file_path = askopenfilename(filetypes=[('Image Files', '*jpeg'), ('Image Files', '*png')])
-    if file_path is not None:
-        label_to_update.configure(text = decode_qr_code(file_path))
-
-def initialize_window():
-    """
-    This method create the main app window.
-    """
-
-    configs=properties()
-
-    customtkinter.set_ctk_parent_class(tkinterdnd2.Tk)
-
-    customtkinter.set_appearance_mode("dark")  # Modes: "System" (standard), "Dark", "Light"
-    customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
-
-    # root = tk.Tk()
-    root = customtkinter.CTk()
-    root.title("QR generator")
-    root.geometry("600x580")
-
-    ico = Image.open('./resources/app_icon.png')
-    photo = ImageTk.PhotoImage(ico)
-    root.wm_iconphoto(False, photo)
-
-    title_frame = customtkinter.CTkFrame(root)
-    title_label = customtkinter.CTkLabel(title_frame, text="QR generator")
-    title_label.pack()
-    title_frame.pack(pady=10)
-    label = customtkinter.CTkLabel(title_frame,
-                     text="This is a simple application to generate QR codes.\n"+
-                     "Use Generate button to start and Open Results to check your QR codes.")
-    label.pack(pady=10)
-
-    luczniczqa_webstie = tk.StringVar(value=configs.get("luczniczqa_website").data)
-
-    input_frame = customtkinter.CTkFrame(root)
-    label = customtkinter.CTkLabel(input_frame, text="Data to encode:")
-    label.pack()
-    entry = customtkinter.CTkEntry(input_frame, textvariable=luczniczqa_webstie, width=400)
-    entry.pack()
-    input_frame.pack(pady=5)
-
-    button_generate = customtkinter.CTkButton(root, text="Generate",
-                                command=lambda:
-                                    generate_qr_code_from_input(configs, get_entry_value(entry)))
-    button_generate.pack(pady=5)
-
-    button_open_results_dir = customtkinter.CTkButton(root, text="Open results",
-                                                      command=open_results_dir)
-    button_open_results_dir.pack(pady=5)
-
-    file_upload_label = customtkinter.CTkLabel(
-        root,
-        text='QR code image to encode: '
+        # create sidebar frame with widgets
+        self.sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
+        self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
+        self.sidebar_frame.grid_rowconfigure(4, weight=1)
+        self.logo_label = customtkinter.CTkLabel(
+            self.sidebar_frame,
+            text="CustomTkinter",
+            font=customtkinter.CTkFont(size=20, weight="bold"),
         )
-    file_upload_label.pack(pady=5)
-
-    file_upload_button = customtkinter.CTkButton(
-        root,
-        text ='Choose File',
-        command = lambda:open_file(file_upload_results_label)
+        self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
+        self.sidebar_button_1 = customtkinter.CTkButton(
+            self.sidebar_frame, text="Results", command=self.open_results_dir
         )
-    file_upload_button.pack(pady=5)
-
-    file_upload_results_label = customtkinter.CTkLabel(
-        root,
-        text='...'
+        self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
+        self.appearance_mode_label = customtkinter.CTkLabel(
+            self.sidebar_frame, text="Appearance Mode:", anchor="w"
         )
-    file_upload_results_label.pack(pady=5)
+        self.appearance_mode_label.grid(row=5, column=0, padx=20, pady=(10, 0))
+        self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(
+            self.sidebar_frame,
+            values=["Light", "Dark", "System"],
+            command=self.change_appearance_mode_event,
+        )
+        self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 10))
+        self.scaling_label = customtkinter.CTkLabel(
+            self.sidebar_frame, text="UI Scaling:", anchor="w"
+        )
+        self.scaling_label.grid(row=7, column=0, padx=20, pady=(10, 0))
+        self.scaling_optionemenu = customtkinter.CTkOptionMenu(
+            self.sidebar_frame,
+            values=["80%", "90%", "100%", "110%", "120%"],
+            command=self.change_scaling_event,
+        )
+        self.scaling_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 20))
 
-    root.mainloop()
+        # create tabview
+        self.tabview = customtkinter.CTkTabview(self, width=250)
+        self.tabview.grid(row=0, column=1, padx=(20, 20), pady=(20, 20), sticky="nsew")
+        self.tabview.add("Generate").grid_columnconfigure(0, weight=1)
+        self.tabview.add("Encode").grid_columnconfigure(0, weight=1)
+
+        # create decode entry and button
+        self.entry_decode = customtkinter.CTkEntry(
+            self.tabview.tab("Generate"), placeholder_text="Data to decode as QR code"
+        )
+        self.entry_decode.grid(
+            row=1, column=0, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew"
+        )
+
+        self.button_decode = customtkinter.CTkButton(
+            master=self.tabview.tab("Generate"),
+            fg_color="transparent",
+            border_width=2,
+            text="Decode",
+            text_color=("gray10", "#DCE4EE"),
+            command=lambda: self.generate_qr_code_from_input(
+                configs, self.get_entry_value(self.entry_decode)
+            ),
+        )
+        self.button_decode.grid(
+            row=1, column=2, padx=(20, 20), pady=(20, 20), sticky="nsew"
+        )
+
+        # create encode entry and button
+        self.label_encode = customtkinter.CTkLabel(
+            self.tabview.tab("Encode"), text="..."
+        )
+        self.label_encode.grid(
+            row=1, column=0, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew"
+        )
+
+        self.button_encode = customtkinter.CTkButton(
+            master=self.tabview.tab("Encode"),
+            fg_color="transparent",
+            border_width=2,
+            text="Decode",
+            text_color=("gray10", "#DCE4EE"),
+            command=lambda: self.open_file(self.label_encode),
+        )
+        self.button_encode.grid(
+            row=1, column=2, padx=(20, 20), pady=(20, 20), sticky="nsew"
+        )
+
+        # set default values
+        self.appearance_mode_optionemenu.set("Dark")
+        self.scaling_optionemenu.set("100%")
+
+    def generate_qr_code_from_input(self, configs, input_field):
+        """
+        This method shows the popup window with welcoming message.
+
+        Parameters:
+        configs (): Object with all the parameters set in the project configuration file
+        input_field (): name of the tkinter Entry element
+        """
+
+        generate_qr_code_without_logo(configs, input_field, "input")
+        messagebox.showinfo("Message", "All QR codes were generated")
+
+    def open_results_dir(self):
+        """
+        This method opens results directory in system explorer.
+        """
+
+        path = "./results"
+        if platform.system() == "Windows":
+            path = os.path.join(os.path.dirname(__file__), "../results")
+            # Line below has to be disabled in pylint due to the lack of this method in Unix os
+            # which the pylint is ran on.
+            os.startfile(path)  # pylint: disable=no-member
+            logging.info("The results directory has been opened (windows)")
+        elif platform.system() == "Darwin":
+            with subprocess.Popen(["open", path]) as sub:
+                logging.info(
+                    "The results directory has been opened (linux): %s", sub.returncode
+                )
+        else:
+            with subprocess.Popen(["xdg-open", path]) as sub:
+                logging.info(
+                    "The results directory has been opened (macOS): %s", sub.returncode
+                )
+
+    def get_entry_value(self, entry_element):
+        """
+        This method returns the value of the given Entry element.
+
+        Parameters:
+        entry_element (): name of the tkinter Entry element
+
+        Returns:
+        str:Value of an entry element
+        """
+
+        current_value = entry_element.get()
+        return current_value
+
+    def open_file(self, label_to_update):
+        """
+        This method updates the Label element with the filename of the choosen file.
+
+        Parameters:
+        label_to_update (): name of the tkinter Label element that should be updated
+        """
+
+        file_path = askopenfilename(
+            filetypes=[("Image Files", "*jpeg"), ("Image Files", "*png")]
+        )
+        if file_path is not None:
+            label_to_update.configure(text=decode_qr_code(file_path))
+
+    def change_appearance_mode_event(self, new_appearance_mode: str):
+        """
+        This method updates the appearance of the GUI.
+
+        Parameters:
+        new_appearance_mode (string): name of style/mode that GUI should be updated by.
+        """
+
+        customtkinter.set_appearance_mode(new_appearance_mode)
+
+    def change_scaling_event(self, new_scaling: str):
+        """
+        This method updates the scale of the GUI.
+
+        Parameters:
+        new_scaling (string): value of scale that GUI should be updated by.
+        """
+
+        new_scaling_float = int(new_scaling.replace("%", "")) / 100
+        customtkinter.set_widget_scaling(new_scaling_float)
