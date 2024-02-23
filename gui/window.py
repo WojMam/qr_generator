@@ -74,6 +74,7 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
             self.sidebar_frame,
             values=["blue", "green", "dark-blue"],
             command=self.change_color_scheme_event,
+            state="disabled",
         )
         self.color_scheme_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 10))
         self.scaling_label = customtkinter.CTkLabel(
