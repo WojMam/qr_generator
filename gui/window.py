@@ -30,7 +30,7 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
 
         configs = properties()
         # configure window
-        self.title("CustomTkinter complex_example.py")
+        self.title("QR Generator")
         self.geometry(f"{1100}x{580}")
 
         ico = Image.open("./resources/app_icon.png")
@@ -48,7 +48,7 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
         self.sidebar_frame.grid_rowconfigure(4, weight=1)
         self.logo_label = customtkinter.CTkLabel(
             self.sidebar_frame,
-            text="CustomTkinter",
+            text="QR generator",
             font=customtkinter.CTkFont(size=20, weight="bold"),
         )
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
@@ -66,16 +66,26 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
             command=self.change_appearance_mode_event,
         )
         self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 10))
+        self.color_scheme_label = customtkinter.CTkLabel(
+            self.sidebar_frame, text="Color scheme:", anchor="w"
+        )
+        self.color_scheme_label.grid(row=7, column=0, padx=20, pady=(10, 0))
+        self.color_scheme_optionemenu = customtkinter.CTkOptionMenu(
+            self.sidebar_frame,
+            values=["blue", "green", "dark-blue"],
+            command=self.change_color_scheme_event,
+        )
+        self.color_scheme_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 10))
         self.scaling_label = customtkinter.CTkLabel(
             self.sidebar_frame, text="UI Scaling:", anchor="w"
         )
-        self.scaling_label.grid(row=7, column=0, padx=20, pady=(10, 0))
+        self.scaling_label.grid(row=9, column=0, padx=20, pady=(10, 0))
         self.scaling_optionemenu = customtkinter.CTkOptionMenu(
             self.sidebar_frame,
             values=["80%", "90%", "100%", "110%", "120%"],
             command=self.change_scaling_event,
         )
-        self.scaling_optionemenu.grid(row=8, column=0, padx=20, pady=(10, 20))
+        self.scaling_optionemenu.grid(row=10, column=0, padx=20, pady=(10, 20))
 
         # create tabview
         self.tabview = customtkinter.CTkTabview(self, width=250)
@@ -201,6 +211,16 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
         """
 
         customtkinter.set_appearance_mode(new_appearance_mode)
+
+    def change_color_scheme_event(self, new_color_scheme: str):
+        """
+        This method updates the color scheme of the GUI.
+
+        Parameters:
+        new_color_scheme (string): name of style/mode that GUI should be updated by.
+        """
+
+        customtkinter.set_default_color_theme(new_color_scheme)
 
     def change_scaling_event(self, new_scaling: str):
         """
