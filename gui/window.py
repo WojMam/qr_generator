@@ -111,28 +111,28 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
             command=lambda: self.generate_qr_code_from_input(
                 configs,
                 self.get_entry_value(self.entry_decode),
-                qrcode_preview_image,
+                qrcode_qrcode_preview_image_generate,
                 "./results/input_qr_code_without_logo.png",
             ),
         )
         self.button_decode.grid(
             row=0, column=2, padx=(20, 20), pady=(20, 20), sticky="nsew"
         )
-        preview_image = Image.open("./resources/dummy_image.png")
-        resized_image = preview_image.resize((300, 300))
-        qrcode_preview_image = customtkinter.CTkImage(
-            dark_image=resized_image,
-            light_image=resized_image,
+        qrcode_preview_image_generate = Image.open("./resources/dummy_image.png")
+        resized_image_generate = qrcode_preview_image_generate.resize((300, 300))
+        qrcode_qrcode_preview_image_generate = customtkinter.CTkImage(
+            dark_image=resized_image_generate,
+            light_image=resized_image_generate,
             size=(300, 300),
         )
-        qrcode_preview_image.configure()
-        self.qrcode_preview_label = customtkinter.CTkLabel(
+        qrcode_qrcode_preview_image_generate.configure()
+        self.qrcode_preview_label_generate = customtkinter.CTkLabel(
             self.tabview.tab("Generate"),
             text="",
-            image=qrcode_preview_image,
+            image=qrcode_qrcode_preview_image_generate,
             anchor="w",
         )
-        self.qrcode_preview_label.grid(
+        self.qrcode_preview_label_generate.grid(
             row=1, column=1, columnspan=2, padx=(20, 0), pady=(20, 20)
         )
 
@@ -150,10 +150,30 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
             border_width=2,
             text="Decode",
             text_color=("gray10", "#DCE4EE"),
-            command=lambda: self.open_file(self.label_encode),
+            command=lambda: self.open_file(
+                self.label_encode,
+                qrcode_qrcode_preview_image_encode,
+            ),
         )
         self.button_encode.grid(
             row=1, column=2, padx=(20, 20), pady=(20, 20), sticky="nsew"
+        )
+        qrcode_preview_image_encode = Image.open("./resources/dummy_image.png")
+        resized_image_encode = qrcode_preview_image_encode.resize((300, 300))
+        qrcode_qrcode_preview_image_encode = customtkinter.CTkImage(
+            dark_image=resized_image_encode,
+            light_image=resized_image_encode,
+            size=(300, 300),
+        )
+        qrcode_qrcode_preview_image_encode.configure()
+        self.qrcode_preview_label_generate = customtkinter.CTkLabel(
+            self.tabview.tab("Encode"),
+            text="",
+            image=qrcode_qrcode_preview_image_encode,
+            anchor="w",
+        )
+        self.qrcode_preview_label_generate.grid(
+            row=2, column=1, columnspan=2, padx=(20, 0), pady=(20, 20)
         )
 
         # set default values
@@ -212,7 +232,7 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
         current_value = entry_element.get()
         return current_value
 
-    def open_file(self, label_to_update):
+    def open_file(self, label_to_update, image_widget):
         """
         This method updates the Label element with the filename of the choosen file.
 
@@ -225,6 +245,7 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
         )
         if file_path is not None:
             label_to_update.configure(text=decode_qr_code(file_path))
+            self.update_generated_qrcode_preview(image_widget, file_path)
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         """
@@ -267,9 +288,9 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
         """
 
         image = Image.open(image_path)
-        resized_image = image.resize((300, 300))
+        resized_image_encode = image.resize((300, 300))
         image_element_name.configure(
-            dark_image=resized_image,
-            light_image=resized_image,
+            dark_image=resized_image_encode,
+            light_image=resized_image_encode,
             size=(300, 300),
         )
