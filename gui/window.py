@@ -25,7 +25,8 @@ customtkinter.set_default_color_theme(
 class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
     """Class representing an app window"""
 
-    def __init__(self):
+    # Reactor too many statements pylint problem needed
+    def __init__(self):  # pylint: disable=too-many-statements
         super().__init__()
 
         configs = properties()
