@@ -139,7 +139,8 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
 
         # create encode entry and button
         self.label_encode = customtkinter.CTkLabel(
-            self.tabview.tab("Encode"), text="..."
+            self.tabview.tab("Encode"),
+            text="Please check a QR image to encode the data from:",
         )
         self.label_encode.grid(
             row=1, column=0, columnspan=2, padx=(20, 0), pady=(20, 20), sticky="nsew"

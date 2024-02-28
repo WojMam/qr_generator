@@ -41,14 +41,14 @@ Last commit Pylink status:
 
 - [x] Full initial refactor
 - [x] Links in the seperate file, not hardcoded in the code
-- [ ] Possibility to put you own link in the command line to generate 1 QR code
+- [x] Possibility to put you own link in the command line to generate 1 QR code - removed :heavy_multiplication_x:
 - [x] Possibility to generate QR codes for all the links from the configuration file via command line - removed :heavy_multiplication_x:
-- [ ] GUI
+- [x] GUI
   - [x] Possibility to put you own link in the entry field
   - [x] Possibility to generate single QR code from the entry field
   - [x] Possibility to generate QR codes for all the links from the configuration file - removed :heavy_multiplication_x:
   - [x] Possibility to open OS explorer window in the "Results" directory
-  - [ ] GUI refactor to more modern one
+  - [x] GUI refactor to more modern one
   - [x] Possibility to decode the data from QR code image
 
 ## License
