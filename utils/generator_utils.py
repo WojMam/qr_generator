@@ -16,7 +16,7 @@ def generate_qr_code_without_logo(configs, data_to_encode, filename_prefix):
     without any logo inside of it in .png format.
 
     Parameters:
-    configs (): Object with all the parameters set in the project configuration file
+    configs (Properties): Object with all the parameters set in the project configuration file
     data_to_encode (string): Data to be decoded inside QR code, for example webpage link
     filename_prefix (string): Prefix to the filename that will be saved as result
     """
@@ -42,7 +42,7 @@ def generate_qr_code_without_logo_svg(configs, data_to_encode, filename_prefix):
     without any logo inside of it in .svg format.
 
     Parameters:
-    configs (): Object with all the parameters set in the project configuration file
+    configs (Properties): Object with all the parameters set in the project configuration file
     data_to_encode (string): Data to be decoded inside QR code, for example webpage link
     filename_prefix (string): Prefix to the filename that will be saved as result
     """
@@ -70,9 +70,10 @@ def generate_qr_code_with_logo(
     with a logo inside of it in .png format.
 
     Parameters:
-    configs (): Object with all the parameters set in the project configuration file
+    configs (Properties): Object with all the parameters set in the project configuration file
     data_to_encode (string): Data to be decoded inside QR code, for example webpage link
     filename_prefix (string): Prefix to the filename that will be saved as result
+    logo_to_encode (string): Path to a logo to encode
     """
 
     create_results_directory(configs)

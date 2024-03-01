@@ -188,7 +188,7 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
         This method shows the popup window with welcoming message.
 
         Parameters:
-        configs (): Object with all the parameters set in the project configuration file
+        configs (Properties): Object with all the parameters set in the project configuration file
         input_field (): name of the tkinter Entry element
         """
 
@@ -239,6 +239,7 @@ class App(customtkinter.CTk):  # pylint: disable=too-many-instance-attributes
 
         Parameters:
         label_to_update (): name of the tkinter Label element that should be updated
+        image_widget (): name of the tkinter widget to update with the new image
         """
 
         file_path = askopenfilename(

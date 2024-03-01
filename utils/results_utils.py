@@ -25,7 +25,7 @@ def create_results_directory(configs):
     in the project and if not- it is creating it in the root of the project.
 
     Parameters:
-    configs (): Object with all the parameters set in the project configuration file
+    configs (Properties): Object with all the parameters set in the project configuration file
     """
 
     if not os.path.exists(configs.get("results_directory").data):
