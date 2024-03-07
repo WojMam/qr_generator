@@ -26,6 +26,26 @@ User can use application GUI to generate the QR codes. To run the GUI below comm
 python main.py
 ```
 
+Current App window view:
+
+![Alt text](/docs/screenshots/main_window.PNG?raw=true "Main window")
+
+<div align="center">
+
+| Function                 | Description                                         |
+| ------------------------ | --------------------------------------------------- |
+| Results [button]         | Opens explorer window with the Results directory    |
+| Appearance Mode [button] | Change the appearance of the app window             |
+| Color scheme [button]    | Currently disabled                                  |
+| UI Scaling [button]      | Change the scale of the app UI                      |
+| Generate [tab]           | Go to the Generate/Encode functionality of app      |
+| Data to decode [entry]   | Entry field for the data (ex. link) to decode as QR |
+| Decode [button]          | Decode given data to QR code/ encode data from QR   |
+| Encoded data [label]     | Label that will be filled with data from QR code    |
+| Encode [button]          | Opens window to choose a file with proper QR image  |
+
+</div>
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
