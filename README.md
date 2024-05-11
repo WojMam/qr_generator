@@ -70,6 +70,7 @@ Last commit Pylink status:
   - [x] Possibility to open OS explorer window in the "Results" directory
   - [x] GUI refactor to more modern one
   - [x] Possibility to decode the data from QR code image
+  - [x] Finalize the project
 
 ## License
 
